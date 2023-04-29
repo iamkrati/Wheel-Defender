@@ -1,0 +1,43 @@
+<% layout('layouts/boilerplate') -%>
+    <br><br><br>
+
+
+    <div class="position_section">
+        <div class="pos_sec">
+            <label for="c1"> <input type="checkbox" name="position" value="Driver" onclick="getSelectItemThat(this.id)"
+                    id="1">Driver</label>
+            <label for="c2"><input type="checkbox" name="position" value="Vehicle Owner"
+                    onclick="getSelectItemThat(this.id)" id="2">Vehicle Owner</label>
+            <label for="c3"><input type="checkbox" name="position" value="Traffic Police"
+                    onclick="getSelectItemThat(this.id)" id="3">Traffic Police</label>
+            <p>
+                <button id="btn">Submit</button>
+            </p>
+        </div>
+    </div>
+    <script>
+        const btn = document.querySelector('#btn');
+        btn.addEventListener('click', (event) => {
+            let checkboxes = document.querySelector('input[name="position"]:checked');
+            alert(checkboxes.value);
+
+            if(checkboxes.value==="Traffic Police")
+            {
+                window.location.href='/tplogin';
+            }
+            else if(checkboxes.value==="Driver")
+            {
+                window.location.href='/login';
+            }
+            else if(checkboxes.value==="Vehicle Owner")
+            {
+                window.location.href='/vlogin';
+            }
+        });
+        function getSelectItemThat(id) {
+            for (var i = 1; i <= 3; i++) {
+                document.getElementById(i).checked = false;
+            }
+            document.getElementById(id).checked = true;
+        }
+    </script>
