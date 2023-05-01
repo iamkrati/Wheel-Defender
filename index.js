@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV != "production") {
+    require("dotenv").config({ path: "./config.env" })
+} 
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -15,7 +19,8 @@ const mongoose = require('mongoose');
 const Driver = require('./models/driver.js')
 const Driverchallan = require('./models/driverchallan.js')
 
-const dburl = 'mongodb://localhost:27017/Wheel_Defender'
+const dburl = process.env.DB_URI
+
 mongoose.connect(dburl)
     .then(() => console.log('MongoDB Connected'))
     .catch((err) => console.log(err));
@@ -239,8 +244,9 @@ app.post('/report', async(req, res) => {
     res.redirect('/report');
 })
 
-app.listen(2502, () => {
-    console.log(`server running at port 2302`);
+const port=process.env.PORT ;
+app.listen(port, () => {
+    console.log(`server running at port 3000`);
 })
 
 
