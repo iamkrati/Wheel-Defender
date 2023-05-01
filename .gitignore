@@ -1,1 +1,1 @@
-/config.env
+echo ".env" >> .gitignore.env
