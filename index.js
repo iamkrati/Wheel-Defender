@@ -31,9 +31,8 @@ const headers = {
     "accept": "application/json",
     "accept-encoding": "gzip, deflate",
     "content-type": "application/json",
-    "clientId": "326d03bbf90b3e160d15fc348042a9f1:b76fddb6ab054d59da9e677aa7cf30d2",
-    //  "clientId": "326d03bbf90b3e160d15fc348042a9f1:b76fddb6afdb054d59da9e677aa7cf30d2",
-    "secretKey": "x6eCy8o29USzNoMt2vZUuIL1SZCYfuBtQvdWExc7hClJFE2DO9vpS2uFnMNf06qgp"
+    "clientId": process.env.clientId,
+    "secretKey": process.env.secretKey
 };
 
 var raw = JSON.stringify({
@@ -92,9 +91,9 @@ app.post('/signup', async (req, res) => {
 
     console.log(req.body)
     const { DLNO, DOB, number } = req.body;
-    const check=await Driver.find({DLNO:`${DLNO}`});
+    const check=await Driver.findOne({DLNO:`${DLNO}`});
     console.log(check)
-    if(check.length==0)
+    if(check==null)
     {
         var raw = JSON.stringify({
             "number": `${DLNO}`,
@@ -198,8 +197,8 @@ app.post('/echalan', (req, res) => {
     console.log(req.body);
     const { dname, vno , reason, amount, comment } = req.body;
     alert("Challan registered");
-    var sid = 'AC4ee3d96219284f0c7242f35bc1e0bec1'
-    var authtoken = 'a8cb0db1400cabf65fcafcc9998c99ed'
+    var sid = process.env.sid
+    var authtoken = process.env.authtoken
     var twilio = require('twilio')(sid, authtoken);
     twilio.messages.create({
         from: "+15076326379",
